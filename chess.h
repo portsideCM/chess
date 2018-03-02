@@ -2,48 +2,28 @@
 #include <thread>
 #include <stdio.h>
 #include <stdint.h>
-#include <vector>
-#include <stdexcept>
 
-#define BOARD_SIZE 8
-#define PAWN 0
-#define KNIGHT 1
-#define BISHOP 2
-#define ROOK 3
-#define QUEEN 4
-#define KING 5
+struct bitboard {
+	uint64_t whitePawns;
+	uint64_t whiteKnights;
+	uint64_t whiteBishop;
+	uint64_t whiteRooks;
+	uint64_t whiteQueen;
+	uint64_t whiteKing;
 
-//1 = pawn, 2 = bishop, 3 = knight, 4 = rook, 5 = queen, 6 = king
-//- is black, + is white
-//0 is empty
-typedef int8_t piece;
-typedef std::pair<location, location> movePair;
+	uint64_t blackPawns;
+	uint64_t blackKnights;
+	uint64_t blackBishop;
+	uint64_t blackRooks;
+	uint64_t blackQueen;
+	uint64_t blackKing;
+};
 
-struct location
-{
-	size_t row, col;
+struct lmove {
+	uint16_t value;
 
-	inline char getColLetter()
-	{
-		return 'a' + col;
+	lmove(const uint8_t& to, const uint8_t& from, const uint8_t& flags){
+		value = ((flags & 0x3f) << 12) | ((from & 0x3f) << 6) | ((to & 0x3f));
 	}
-};
-
-class move
-{
-public:
-	bool m_whiteMove;
-	movePair m_move;
-	bool isLegal(); //my lord... is that legal?
-};
-
-
-class board
-{
-public:
-	board(board& b) : m_board(b.m_board) {}
-	board(std::vector<std::vector<piece>> b) : m_board(b) {}
-
-	std::vector<std::vector<piece>> m_board;
 };
 
