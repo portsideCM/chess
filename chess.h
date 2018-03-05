@@ -2,6 +2,12 @@
 #include <thread>
 #include <stdio.h>
 #include <stdint.h>
+#include <vector>
+
+enum Color {
+	WHITE = 0,
+	BLACK
+}
 
 struct bitboard {
 	uint64_t whitePawns;
