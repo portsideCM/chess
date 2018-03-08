@@ -7,8 +7,10 @@
 enum Color {
 	WHITE = 0,
 	BLACK
-}
+};
 
+//a8 = 1
+//h1 = 64
 struct bitboard {
 	uint64_t whitePawns;
 	uint64_t whiteKnights;
